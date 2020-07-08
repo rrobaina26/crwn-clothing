@@ -17,6 +17,7 @@ class SignUp extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Creating user and password auth");
     const { displayName, email, password, confirmPassword } = this.state;
     if (password !== confirmPassword) {
       alert("Passwords don't match!");
@@ -28,7 +29,9 @@ class SignUp extends Component {
         email,
         password
       );
-      await createUserProfileDocument(user, { displayName });
+      console.log(user);
+      const userRef = await createUserProfileDocument(user, { displayName });
+      console.log(userRef);
       this.setState({
         displayName: "",
         email: "",
@@ -36,6 +39,7 @@ class SignUp extends Component {
         confirmPassword: "",
       });
     } catch (error) {
+      alert(error.message);
       console.error("Couldn't create user", error.message);
     }
   };
