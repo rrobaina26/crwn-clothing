@@ -4,6 +4,15 @@
   height: 350px;
   width: 22%;
   align-items: center;
+  position: relative;
+  &:hover {
+    .custom-button{
+      display: flex;
+    }
+    .image {
+      opacity: 0.8;
+    }
+  }
 
   .image {
     width: 100%;
@@ -29,5 +38,13 @@
       width: 10%;
       text-align: right;
     }
+  }
+
+  .custom-button{
+    top: 255px;
+    width: 85%;
+    position: absolute;
+    opacity: 0.85;
+    display: none;
   }
 }
