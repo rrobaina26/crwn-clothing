@@ -1,1 +1,6 @@
-export const CartActionTypes = { TOOGLE_DROPDOWN: "TOOGLE_DROPDOWN", ADD_ITEM: "ADD_ITEM_TO_CART" };
+export const CartActionTypes = {
+  TOOGLE_DROPDOWN: "TOOGLE_DROPDOWN",
+  ADD_ITEM: "ADD_ITEM_TO_CART",
+  CLEAR_ITEM: "CLEAR_ITEM",
+  REMOVE_ITEM: "REMOVE_ITEM",
+};
