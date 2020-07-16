@@ -11,7 +11,6 @@ import {selectCurrentUser} from "../../redux/user/user.selectors"
 import CartDropdown from "../cart-dropdown/cart-dropdown.components";
 
 const Header = ({ currentUser, hidden }) => {
-  console.table(currentUser);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
