@@ -1,38 +1,20 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import CollectionPage from "../collection/collection.component";
-import { updateCollections } from "../../redux/shop/shop.actions";
-import CollectionOverview from "../../components/collection-overview/collection-overview.component";
+import { selectIsLoading } from "../../redux/shop/shop.selectors";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
-
-import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
+import CollectionOverview from "../../components/collection-overview/collection-overview.component";
 
 class ShopPage extends Component {
-  unsuscribe = null;
-
-  state = { isLoading: true };
-
   componentDidMount() {
-    const { updateCollections } = this.props;
-    const colRef = firestore.collection("collections");
-    this.unsuscribe = colRef.onSnapshot(async (snapshot) => {
-      const collections = convertCollectionsSnapshotToMap(snapshot);
-      updateCollections(collections);
-      this.setState({ isLoading: false });
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsuscribe();
+    this.props.fetchCollectionsStartAsync();
   }
 
   render() {
-    const { match } = this.props;
-    const { isLoading } = this.state;
+    const { match, isLoading } = this.props;
     const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview);
     const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
@@ -62,4 +44,10 @@ class ShopPage extends Component {
   }
 }
 
-export default connect(null, { updateCollections })(ShopPage);
+const mapStateToProp = createStructuredSelector({
+  isLoading: selectIsLoading,
+});
+
+export default connect(mapStateToProp, { fetchCollectionsStartAsync })(
+  ShopPage
+);
